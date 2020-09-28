@@ -26,8 +26,9 @@ int mode=0;        //  Display
 double z=0;     // Z variable
 double w=1;     // W variable
 double pi=3.14159; // Pi
-int axes = 1;
+int axes = 1; // Axes
 
+// Rotation
 typedef struct {
     double rotAngle;
     double rotX;
