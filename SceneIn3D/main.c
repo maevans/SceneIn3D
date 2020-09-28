@@ -25,6 +25,56 @@ int elev=0;          //  Elevation of view angle
 int mode=0;        //  Display
 double z=0;     // Z variable
 double w=1;     // W variable
+double pi=3.14159; // Pi
+int axes = 1;
+
+typedef struct {
+    double rotAngle;
+    double rotX;
+    double rotY;
+    double rotZ;
+} Rotation;
+
+
+static void cylinder (double radius, double height, int num,
+                      double xPos, double yPos, double zPos, Rotation rot){
+    //  Transformation
+    glPushMatrix();
+    //  Translation Double
+    glTranslated(xPos,yPos,zPos); //TranslateD = Double, F = float
+    
+    glRotated(rot.rotAngle,rot.rotX,rot.rotY,rot.rotZ); // Tree Branch
+    
+    // Tree Trunk
+    glBegin(GL_QUADS);
+    // Angle in Radians
+    for (int i = 0; i < num; i++){
+        double angle1 = 2 * pi * i / num; // Num - sides of polygon for base
+        double angle2 = 2 * pi * (i+1) / num;
+        // Z axis
+        double z1 = cos(angle1) * radius; // Radius of Cylinder
+        double x1 = sin(angle1) * radius; // X axis
+        // Y Axis - Height
+        double yLow = 0;
+        double yHigh = height;
+        
+        double z2 = cos(angle2) * radius; // Radius of Cylinder
+        double x2 = sin(angle2) * radius; // X axis
+        
+        // Color
+        glColor3f(0,1,0);
+        // Quad
+        glVertex3f(x1,yLow,z1);
+        glVertex3f(x2,yLow,z2);
+        glVertex3f(x2,yHigh,z2);
+        glVertex3f(x1,yHigh,z1);
+        
+    }
+    //  End
+    glEnd();
+    //  Undo transformations
+    glPopMatrix();
+}
 //----------------------------------------------------------------------------
 //===============================DISPLAY======================================
 /*
@@ -47,6 +97,35 @@ void display()
     glRotatef(angle,1,0,0);
     glRotatef(elev,0,1,0);
 
+    Rotation rot = {45, 1, 0 ,0};
+    Rotation rot2 = {30, 1, 0 ,0};
+    cylinder(0.1, 1, 20, .1, .2, .3, rot);
+    cylinder(0.2, .6, 20, -.2, 0, -.3, rot2);
+    
+    //  White
+    glColor3f(1,1,1);
+    //  Draw axes
+    double len = 4;
+    if (axes)
+    {
+       glBegin(GL_LINES);
+       glVertex3d(0.0,0.0,0.0);
+       glVertex3d(len,0.0,0.0);
+       glVertex3d(0.0,0.0,0.0);
+       glVertex3d(0.0,len,0.0);
+       glVertex3d(0.0,0.0,0.0);
+       glVertex3d(0.0,0.0,len);
+       glEnd();
+       //  Label axes
+       glRasterPos3d(len,0.0,0.0); // Position
+       //Print("X");
+        //Color Change
+       glRasterPos3d(0.0,len,0.0);
+       //Print("Y");
+       glRasterPos3d(0.0,0.0,len);
+       //Print("Z");
+    }
+    
     //  Draw
     switch (mode)
     {
@@ -69,24 +148,7 @@ void display()
     //  Rendered scene make visible
     glutSwapBuffers();
 }
-//----------------------------------------------------------------------------
-//=================================MAIN=======================================
-/*
- * Main Scene In 3D
- */
-int main(int argc,char* argv[])
-{
-   //  Initialize GLUT
-   glutInit(&argc,argv);
-   //  Create window
-   glutCreateWindow("Scene In 3D");
-   //  Register function used to display scene
-   glutDisplayFunc(display);
-   //  Pass control to GLUT for events
-   glutMainLoop();
-   //  Return to OS
-   return 0;
-}
+
 //----------------------------------------------------------------------------
 //===============================WINDOW=======================================
 /*
@@ -132,6 +194,9 @@ void key(unsigned char ch,int x,int y)
       if (mode==2) z = 0;
       if (mode==4) w = 1;
    }
+    //  Toggle axes
+    else if (ch == 'a' || ch == 'A')
+       axes = 1-axes;
 
     //  Increase w by 0.1
    else if (ch == '+')
@@ -178,5 +243,25 @@ void special(int key,int x,int y)
    glutPostRedisplay();
 }
 //----------------------------------------------------------------------------
-
-//==================================END=======================================
+//=================================MAIN=======================================
+/*
+ * Main Scene In 3D
+ */
+int main(int argc,char* argv[])
+{
+   //  Initialize GLUT
+   glutInit(&argc,argv);
+   //  Create window
+   glutCreateWindow("Scene In 3D");
+   //  Register function used to display scene
+   glutDisplayFunc(display);
+   //  Tell GLUT to call "key" when a key is pressed
+   glutKeyboardFunc(key);
+    //  Tell GLUT to call "special" when an arrow key is pressed
+    glutSpecialFunc(special);
+   //  Pass control to GLUT for events
+   glutMainLoop();
+   //  Return to OS
+   return 0;
+}
+//----------------------------------------------------------------------------
