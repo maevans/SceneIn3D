@@ -54,7 +54,7 @@ static void cylinder (double radius, double height, int num,
         double angle2 = 2 * pi * (i+1) / num;
         // Z axis
         double z1 = cos(angle1) * radius; // Radius of Cylinder
-        double x1 = sin(angle1) * radius; // X axis
+        double x1 = sin(angle1) * radius; // X Axis
         // Y Axis - Height
         double yLow = 0;
         double yHigh = height;
