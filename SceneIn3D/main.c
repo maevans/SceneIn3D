@@ -36,7 +36,7 @@ typedef struct {
     double rotZ;
 } Rotation;
 
-
+// TREE TRUNK
 static void cylinder (double radius, double height, int num,
                       double xPos, double yPos, double zPos, Rotation rot){
     //  Transformation
@@ -60,7 +60,7 @@ static void cylinder (double radius, double height, int num,
         double yHigh = height;
         
         double z2 = cos(angle2) * radius; // Radius of Cylinder
-        double x2 = sin(angle2) * radius; // X axis
+        double x2 = sin(angle2) * radius; // X Axis
         
         // Color
         glColor3f(0,1,0);
