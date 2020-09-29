@@ -243,13 +243,13 @@ void key(unsigned char ch,int x,int y)
        axes = 1-axes;
 
     //  Increase
-   else if (ch == '+')
+   else if (ch == '[')
    {
        z += 0.5;
    }
 
     //  Decrease
-   else if (ch == '-')
+   else if (ch == ']')
    {
        z -= 0.5;
    }
