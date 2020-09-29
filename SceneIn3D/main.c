@@ -5,7 +5,6 @@
 //  Created by Mahalia Evans
 //
 
-#include "teapot.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -177,18 +176,17 @@ static void cone(double radius, double height, int num,
 //----------------------------------------------------------------------------
 void display()
 {
-   //  Clear screen
-   glClear(GL_COLOR_BUFFER_BIT);
-   //  Make scene visible
-   glFlush();
 
-    //  Erase the window and the depth buffer
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glFlush();
+
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    //  Enable Z-buffering in OpenGL
+
     glEnable(GL_DEPTH_TEST);
-    //  Undo previous transformations
+
     glLoadIdentity();
-    //  Set view angle
+
     glRotatef(angle,1,0,0);
     glRotatef(elev,0,1,0);
     
@@ -249,17 +247,14 @@ void display()
     
     // --- RAYS ---
     Rotation rot5 = {45, 0, -180, 0}; // Ray 4 Rotation
-    Rotation rot6 = {45, 0, -280, 0}; // Ray 6 Rotation
+    Rotation rot6 = {45, 0, -280, 0}; // Ray 5 Rotation
     
     glColor3f(0.92, 0.84, 0.42);
     cone(0.08, 0.18, 250, 0.52, 0.88, 0.2, rot1); // Ray 1
     cone(0.08, 0.18, 250, 0.76, 0.78, 0.2, rot2); // Ray 2
     cone(0.08, 0.22, 250, 0.6, 0.82, 0.2, rot3); // Ray 3
     cone(0.08, 0.22, 250, 0.48, 0.68, 0.2, rot5); // Ray 4
-    
     cone(0.08, 0.18, 250, 0.74, 0.66, 0.2, rot6); // Ray 5
-
-    
     
     //  Draw axes
     glColor3f(1,1,1);
@@ -291,19 +286,20 @@ void display()
 void reshape(int width,int height)
 {
    const double dim=2.5;
-   //  Ratio of the width to the height of the window
+
    double w2h = (height>0) ? (double)width/height : 1;
-   //  Set the viewport to the entire window
+
    glViewport(0,0, width,height);
-   //  Tell OpenGL we want to manipulate the projection matrix
+
    glMatrixMode(GL_PROJECTION);
-   //  Undo previous transformations
+
    glLoadIdentity();
-   //  Orthogonal projection
+   
+    //  Orthogonal projection
    glOrtho(-w2h*dim,+w2h*dim, -dim,+dim, -dim,+dim);
-   //  Switch to manipulating the model matrix
+
    glMatrixMode(GL_MODELVIEW);
-   //  Undo previous transformations
+
    glLoadIdentity();
 }
 
@@ -364,19 +360,19 @@ void arrows(int key,int x,int y)
 //----------------------------------------------------------------------------
 int main(int argc,char* argv[])
 {
-   //  Initialize GLUT
+
    glutInit(&argc,argv);
-   //  Create window
+
    glutCreateWindow("Scene In 3D");
-   //  Register function used to display scene
+
    glutDisplayFunc(display);
-   //  Tell GLUT to call "key" when a key is pressed
+
    glutKeyboardFunc(key);
-    //  Tell GLUT to call "special" when an arrow key is pressed
+
     glutSpecialFunc(arrows);
-   //  Pass control to GLUT for events
+
    glutMainLoop();
-   //  Return to OS
+
    return 0;
 }
 //----------------------------------------------------------------------------
