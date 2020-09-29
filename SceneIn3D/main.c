@@ -28,7 +28,7 @@ int mode=0;        //  Display
 double z=0;     // Z variable
 double w=1;     // W variable
 double pi=3.14159; // Pi
-int axes = 0; // Axes
+int axes=0; // Axes
 
 // Rotation
 typedef struct {
@@ -47,13 +47,13 @@ static void cylinder (double radius, double height, int num,
     //  Translation Double
     glTranslated(xPos,yPos,zPos); //TranslateD = Double, F = float
     // Rotation Double
-    glRotated(rot.rotAngle,rot.rotX,rot.rotY,rot.rotZ); // Tree Branch
+    glRotated(rot.rotAngle,rot.rotX,rot.rotY,rot.rotZ); // Tree Branch Rotation
     
-    // TRUNK
+    // Tree Trunk
     glBegin(GL_QUADS);
     // Angle in Radians
     for (int i = 0; i < num; i++){
-        double angle1 = 2 * pi * i / num; // Num - sides of polygon for base
+        double angle1 = 2 * pi * i / num; // Num - sides of polygon for base or Vertex count
         double angle2 = 2 * pi * (i+1) / num;
         
         // Z axis
@@ -66,9 +66,6 @@ static void cylinder (double radius, double height, int num,
         
         double z2 = cos(angle2) * radius; // Radius of Cylinder
         double x2 = sin(angle2) * radius; // X Axis
-        
-        // Brown Color
-        //glColor3f(0.59,0.29,0.00);
         
         // Quad
         glVertex3f(x1,yLow,z1);
@@ -83,7 +80,98 @@ static void cylinder (double radius, double height, int num,
     glPopMatrix();
 }
 
+//==================================SUN=======================================
+//----------------------------------------------------------------------------
+static void sphere(double radius,
+                   double xPos, double yPos, double zPos) {
+    //  Transformation
+    glPushMatrix();
+    //  Translation
+    glTranslated(xPos,yPos,zPos);
+    int num = 320;
+    double theta_arc_length = pi / (num);
+    double phi_arc_length = 2 * pi / (num);
+    for (int j = 0; j < num; ++j) {
+        for (int i = 0; i < num; ++i) {
+            double theta1 = theta_arc_length * i;
+            double theta2 = theta_arc_length * (i + 1);
 
+            double phi1 = phi_arc_length * j;
+            double phi2 = phi_arc_length * (j + 1);
+
+            double x1 = radius * sin(theta1) * cos(phi1);
+            double y1 = radius * sin(theta1) * sin(phi1);
+            double z1 = radius * cos(theta1);
+
+            double x2 = radius * sin(theta2) * cos(phi1);
+            double y2 = radius * sin(theta2) * sin(phi1);
+            double z2 = radius * cos(theta2);
+
+            double x3 = radius * sin(theta2) * cos(phi2);
+            double y3 = radius * sin(theta2) * sin(phi2);
+            double z3 = radius * cos(theta2);
+
+            double x4 = radius * sin(theta1) * cos(phi2);
+            double y4 = radius * sin(theta1) * sin(phi2);
+            double z4 = radius * cos(theta1);
+
+            // Quad
+            glBegin(GL_LINE_LOOP);
+            glVertex3f(x1, y1, z1);
+            glVertex3f(x2, y2, z2);
+            glVertex3f(x3, y3, z3);
+            glVertex3f(x4, y4, z4);
+            glEnd();
+        }
+    }
+    //  End
+    glEnd();
+    //  Undo Transformations
+    glPopMatrix();
+}
+
+//=================================RAYS=======================================
+//----------------------------------------------------------------------------
+static void cone(double radius, double height, int num,
+    double xPos, double yPos, double zPos, Rotation rot) {
+    //  Transformation
+    glPushMatrix();
+    //  Translation
+    glTranslated(xPos, yPos, zPos);
+
+    glRotated(rot.rotAngle, rot.rotX, rot.rotY, rot.rotZ); // Ray Rotation
+
+    // Sun Rays
+    glBegin(GL_QUADS);
+
+    for (int i = 0; i < num; i++) {
+        double angle1 = 2 * pi * i / num;
+        double angle2 = 2 * pi * (i + 1) / num;
+        // Z axis
+        double z1 = cos(angle1) * radius; // Radius of Cylinder
+        double x1 = sin(angle1) * radius; // X Axis
+        // Y Axis - Height
+        double yLow = 0;
+        double yHigh = height;
+
+        double z2 = cos(angle2) * radius; // Radius of Cylinder
+        double x2 = sin(angle2) * radius; // X Axis
+
+        // Color
+        //glColor3f(0,1,0);
+        
+        // Quad
+        glVertex3f(x1, yLow, z1);
+        glVertex3f(x2, yLow, z2);
+        glVertex3f(0, yHigh, 0);
+        glVertex3f(0, yHigh, 0);
+
+    }
+    //  End
+    glEnd();
+    //  Undo transformations
+    glPopMatrix();
+}
 
 //===============================DISPLAY======================================
 //----------------------------------------------------------------------------
@@ -104,17 +192,17 @@ void display()
     glRotatef(angle,1,0,0);
     glRotatef(elev,0,1,0);
     
-    //--Tree Rotations--
+    // -- Tree Rotations --
     Rotation rot = {0, 1, 0, 0}; // Trunk Rotation
     Rotation rot1 = {30, 0, 0, 92}; // Branch 1 Rotation
     Rotation rot2 = {30, 0, 0, 154}; // Branch 2 Rotation
     Rotation rot3 = {30, 0, 0, -88}; // Branch 3 Rotation
     Rotation rot4 = {30, 0, 0, -108}; // Branch 4 Rotation
     
-    //---TREE 1---
+    // --- TREE 1 ---
     
     // Trunk
-    glColor3f(0.59,0.35,0.00);
+    glColor3f(0.35,0.18,0.00);
     cylinder(0.3, 2, 250, -0.25, -1.5, 1.2, rot);
    
     // Branch 1
@@ -133,11 +221,10 @@ void display()
     glColor3f(0.59,0.27,0.00);
     cylinder(0.1, 0.6, 250, -0.1, -0.65, 1.07, rot4);
     
-    
-    //---TREE 2---
+    // --- TREE 2 ---
    
     // Trunk
-    glColor3f(0.59,0.35,0.00);
+    glColor3f(0.35,0.18,0.00);
     cylinder(0.08, 1, 250, 0.35, -1.5, 0, rot);
    
     // Branch 1
@@ -156,6 +243,23 @@ void display()
     glColor3f(0.59,0.27,0.00);
     cylinder(0.05, 0.2, 250, 0.38, -0.65, -0.02, rot4);
     
+    // --- SUN ---
+    glColor3f(0.9,0.88,0.18);
+    sphere(0.15, 0.6, 0.8, 0.2);
+    
+    // --- RAYS ---
+    Rotation rot5 = {45, 0, -180, 0}; // Ray 4 Rotation
+    Rotation rot6 = {45, 0, -280, 0}; // Ray 6 Rotation
+    
+    glColor3f(0.92, 0.84, 0.42);
+    cone(0.08, 0.18, 250, 0.52, 0.88, 0.2, rot1); // Ray 1
+    cone(0.08, 0.18, 250, 0.76, 0.78, 0.2, rot2); // Ray 2
+    cone(0.08, 0.22, 250, 0.6, 0.82, 0.2, rot3); // Ray 3
+    cone(0.08, 0.22, 250, 0.48, 0.68, 0.2, rot5); // Ray 4
+    
+    cone(0.08, 0.18, 250, 0.74, 0.66, 0.2, rot6); // Ray 5
+
+    
     
     //  Draw axes
     glColor3f(1,1,1);
@@ -170,38 +274,15 @@ void display()
        glVertex3d(0.0,0.0,0.0);
        glVertex3d(0.0,0.0,len);
        glEnd();
-       //  Label axes
-//       glColor3f(1,0,0);//Print("X");
-       glRasterPos3d(len,0.0,0.0); // Position
-       //Print("X");
-//       glColor3f(0,1,0);
-       glRasterPos3d(0.0,len,0.0);
-       //Print("Y");
-//       glColor3f(0,1,0);
-       glRasterPos3d(0.0,0.0,len);
-       //Print("Z");
+       //  Position axes
+       glRasterPos3d(len,0.0,0.0); // Position X
+       glRasterPos3d(0.0,len,0.0); // Position Y
+       glRasterPos3d(0.0,0.0,len); // Position Z
+ 
     }
     
-    //  Draw
-    switch (mode)
-    {
-       //  Draw Sun & Plants
-       case 0:
-          //sun(0,0,0 , 0.3,0.3,0.3 , 0); // Draw a Sun at this position
-          //plantA(1,0,0 , 0.2,0.2,0.2 , 45); // Draw a Plant at this position
-          //plantB(0,1,0 , 0.4,0.4,0.2 , 90); // Same Plant at a different position
-          break;
-
-       //  Draw Plants & Sun
-       case 1:
-          //plantA(0,0,0 , 0.4);
-          //plantB(1,0,0 , 0.2);
-          //sun(0,1,0 , 0.2);
-          break;
-    }
-    //  Render the scene
     glFlush();
-    //  Rendered scene make visible
+
     glutSwapBuffers();
 }
 
