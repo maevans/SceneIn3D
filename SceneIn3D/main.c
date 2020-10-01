@@ -299,7 +299,7 @@ void reshape(int width,int height)
    glLoadIdentity();
    
     //  Orthogonal projection
-   glOrtho(-w2h*dim,+w2h*dim, -dim,+dim, -dim,+dim);
+   glOrtho(-w2h * dim, +w2h * dim, -dim, +dim, -dim, +dim);
 
    glMatrixMode(GL_MODELVIEW);
 
