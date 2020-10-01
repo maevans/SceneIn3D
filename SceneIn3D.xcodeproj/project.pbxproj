@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B8BF1EE3251BD6730065C724 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = B8BF1EE2251BD6730065C724 /* main.c */; };
+		B8030D672526369000A7346C /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = B8030D662526369000A7346C /* makefile */; };
+		B8BF1EE3251BD6730065C724 /* scene.c in Sources */ = {isa = PBXBuildFile; fileRef = B8BF1EE2251BD6730065C724 /* scene.c */; };
 		B8BF1EEC251BD6800065C724 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BF1EEB251BD67F0065C724 /* OpenGL.framework */; };
 		B8BF1EEE251BD6860065C724 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BF1EED251BD6860065C724 /* GLUT.framework */; };
 		B8BF1F24251DB4A80065C724 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BF1F23251DB4A80065C724 /* GLKit.framework */; };
@@ -26,8 +27,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B8030D662526369000A7346C /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		B8BF1EDF251BD6730065C724 /* SceneIn3D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SceneIn3D; sourceTree = BUILT_PRODUCTS_DIR; };
-		B8BF1EE2251BD6730065C724 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		B8BF1EE2251BD6730065C724 /* scene.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scene.c; sourceTree = "<group>"; };
 		B8BF1EEB251BD67F0065C724 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		B8BF1EED251BD6860065C724 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		B8BF1F23251DB4A80065C724 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -67,7 +69,8 @@
 		B8BF1EE1251BD6730065C724 /* SceneIn3D */ = {
 			isa = PBXGroup;
 			children = (
-				B8BF1EE2251BD6730065C724 /* main.c */,
+				B8BF1EE2251BD6730065C724 /* scene.c */,
+				B8030D662526369000A7346C /* makefile */,
 			);
 			path = SceneIn3D;
 			sourceTree = "<group>";
@@ -138,7 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8BF1EE3251BD6730065C724 /* main.c in Sources */,
+				B8030D672526369000A7346C /* makefile in Sources */,
+				B8BF1EE3251BD6730065C724 /* scene.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
