@@ -15,6 +15,4 @@ Esc - Exit
 
 ← - Left 
 
-"+" - Increase Size
-
-"-" - Decrease Size 
+a - Toggle Axes
