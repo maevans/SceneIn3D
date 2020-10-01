@@ -30,7 +30,6 @@
 		B8BF1EE2251BD6730065C724 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		B8BF1EEB251BD67F0065C724 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		B8BF1EED251BD6860065C724 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
-		B8BF1EF0251BDA830065C724 /* teapot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = teapot.h; sourceTree = "<group>"; };
 		B8BF1F23251DB4A80065C724 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -69,7 +68,6 @@
 			isa = PBXGroup;
 			children = (
 				B8BF1EE2251BD6730065C724 /* main.c */,
-				B8BF1EF0251BDA830065C724 /* teapot.h */,
 			);
 			path = SceneIn3D;
 			sourceTree = "<group>";
