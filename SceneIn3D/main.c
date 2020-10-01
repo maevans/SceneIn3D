@@ -246,18 +246,18 @@ void display()
     sphere(0.15, 0.6, 0.8, 0.2);
     
     // --- RAYS ---
-    Rotation rot7 = {45, 0, 0, 92}; //Ray 1 Rotation
-    Rotation rot8 = {295, 0, 0, 92}; //Ray 2 Rotation
-    Rotation rot9 = {20, 0, 0, -88}; //Ray 3 Rotation
-    Rotation rot5 = {225, 0, 0, -270}; //Ray 4 Rotation
-    Rotation rot6 = {155, 0, 0, -270}; //Ray 5 Rotation
+    Rotation rot5 = {45, 0, 0, 92}; //Ray 1 Rotation
+    Rotation rot6 = {295, 0, 0, 92}; //Ray 2 Rotation
+    Rotation rot7 = {20, 0, 0, -88}; //Ray 3 Rotation
+    Rotation rot8 = {225, 0, 0, -270}; //Ray 4 Rotation
+    Rotation rot9 = {155, 0, 0, -270}; //Ray 5 Rotation
     
     glColor3f(0.92, 0.84, 0.42);
-    cone(0.08, 0.18, 250, 0.52, 0.86, 0.2, rot7); //Ray 1
-    cone(0.08, 0.18, 250, 0.68, 0.78, 0.2, rot8); //Ray 2
-    cone(0.08, 0.22, 250, 0.6, 0.88, 0.2, rot9); //Ray 3
-    cone(0.08, 0.22, 250, 0.535, 0.745, 0.2, rot5); //Ray 4
-    cone(0.08, 0.18, 250, 0.66, 0.70, 0.2, rot6); //Ray 5
+    cone(0.08, 0.18, 250, 0.52, 0.86, 0.2, rot5); //Ray 1
+    cone(0.08, 0.18, 250, 0.68, 0.78, 0.2, rot6); //Ray 2
+    cone(0.08, 0.22, 250, 0.6, 0.88, 0.2, rot7); //Ray 3
+    cone(0.08, 0.22, 250, 0.535, 0.745, 0.2, rot8); //Ray 4
+    cone(0.08, 0.18, 250, 0.66, 0.70, 0.2, rot9); //Ray 5
     
     //  Draw axes
     glColor3f(1,1,1);
